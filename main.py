@@ -1,23 +1,23 @@
-import numpy as maram
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from time import time
 
 
 def matrix_multiplication(A, B, BlockSize):
-    C = maram.zeros((len(A), len(B[0])), dtype=int)
+    C = np.zeros((len(A), len(B[0])), dtype=int)
     for indexBlA in range(0, len(A[0]), BlockSize):
         for indexBlB in range(0, len(B[0]), BlockSize):
             for i in range(len(A)):
                 for j in range(indexBlB, indexBlB + BlockSize):
-                    C[i][j] += maram.dot(A[i][indexBlA:indexBlA + BlockSize], B[indexBlA:indexBlA + BlockSize, j])
+                    C[i][j] += np.dot(A[i][indexBlA:indexBlA + BlockSize], B[indexBlA:indexBlA + BlockSize, j])
     return C
 
 
 def main():
     for matrix_size in [50, 100, 200, 300]:
-        A = maram.random.randint(5, size=(matrix_size, matrix_size))
-        B = maram.random.randint(5, size=(matrix_size, matrix_size))
+        A = np.random.randint(5, size=(matrix_size, matrix_size))
+        B = np.random.randint(5, size=(matrix_size, matrix_size))
         data = []
         for blocksize in [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 150, 200, 250, 300]:
             if matrix_size % blocksize != 0:
